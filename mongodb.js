@@ -12,5 +12,24 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: t
 
     const db = client.db(databaseName)
 
-    
+   db.collection('tasks').insertMany([
+       {
+           name: 'Dancing',
+           completed: true
+       },
+       {
+           name: 'Writing',
+           completed: true
+       },
+       {
+           name: 'Marriage',
+           completed: false
+       }
+   ], (error, result) => {
+       if(error) {
+           return console.log('Unable to insert docs')
+       }
+
+       console.log(result.ops)
+   })
 })
