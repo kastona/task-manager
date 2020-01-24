@@ -7,12 +7,16 @@ MongoClient.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true}).th
 
     const db = client.db(databasName)
 
-    db.collection('users').updateOne({
-        name: 'Steve'
+    db.collection('tasks').updateMany({
+        completed: false
     }, {
-        $inc: {
-            age: 8
+        $set: {
+            completed: true
         }
+    }).then(result => {
+        console.log(result)
+    }).catch(error => {
+        console.log(error)
     })
 
 }).catch(error => console.log(`Unable to connect to ${databasName} database`))
