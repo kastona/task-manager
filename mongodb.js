@@ -1,18 +1,18 @@
 const {MongoClient, ObjectID} = require('mongodb')
 
-const connectionURL = 'mongodb://127.0.0.1:27017'
-const databaseName = 'task-manager'
+const dbURL = 'mongodb://127.0.0.1:27017'
+const databasName = 'task-manager'
+
+MongoClient.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true}).then(client => {
+
+    const db = client.db(databasName)
+
+    db.collection('users').find({}).toArray().then(arrayData => {
+        console.log(arrayData)
+    }).catch(error =>{
+        console.log('Unable to get data!')
+    })
 
 
-MongoClient.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: true}, (error, client) => {
-    if(error) {
-        return console.log('Unable to connect to database')
-    }
 
-    const db = client.db(databaseName)
-    db.collection('tasks').find({completed: true}).toArray().then(data => {
-        data.forEach(element => {
-            console.log(element)
-        });
-    }).catch(error => console.log(error))
-})
+}).then(error => console.log(`Unable to connect to ${databasName} database`))
