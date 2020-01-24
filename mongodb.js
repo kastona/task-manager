@@ -7,14 +7,8 @@ MongoClient.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true}).th
 
     const db = client.db(databasName)
 
-    db.collection('tasks').updateMany({
-        completed: false
-    }, {
-        $set: {
-            completed: true
-        }
-    }).then(result => {
-        console.log(result)
+    db.collection('users').deleteOne({age: 21}).then(result => {
+        console.log(result.deletedCount)
     }).catch(error => {
         console.log(error)
     })
