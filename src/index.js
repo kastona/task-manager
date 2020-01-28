@@ -34,7 +34,7 @@ app.get('/users', (req, res) => {
 app.get('/users/:id', (req, res) => {
     User.findById(req.params.id).then(user => {
         if(!user) {
-            return res.status(400).send()
+            return res.status(404).send()
         }
 
         res.send(user)
@@ -50,14 +50,14 @@ app.post('/tasks', (req, res) => {
     task.save().then(t => {
         res.status(201).send(t)
     }).catch(error => {
-        res.status(400).send(error)
+        res.status(500).send(error)
     })
 })
 
 app.get('/tasks', (req, res) => {
     Task.find({}).then(tasks => {
         if(!tasks) {
-            return res.status(400).send()
+            return res.status(404).send()
         }
 
         res.send(tasks)
@@ -69,7 +69,7 @@ app.get('/tasks', (req, res) => {
 app.get('/tasks/:id', (req, res) => {
     Task.findOne({_id: req.params.id}).then(task => {
         if(!task) {
-            return res.status(400).send()
+            return res.status(404).send()
         }
 
         res.send(task)
